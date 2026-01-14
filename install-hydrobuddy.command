@@ -192,6 +192,29 @@ echo ""
 # Check database files
 check_database_files "$APP_PATH"
 
+# Add custom fertilizers to database
+APP_DIR="$(dirname "$APP_PATH")"
+FERTILIZER_SCRIPT="$(dirname "$0")/add-fertilizers.py"
+
+if [ -f "$FERTILIZER_SCRIPT" ]; then
+    echo "Adding custom fertilizers to database..."
+    echo ""
+    
+    chmod +x "$FERTILIZER_SCRIPT" 2>/dev/null || true
+    
+    if command -v python3 &> /dev/null; then
+        python3 "$FERTILIZER_SCRIPT" "$APP_DIR" || {
+            echo "⚠️  Warning: Failed to add fertilizers, but installation will continue"
+            echo ""
+        }
+    else
+        echo "⚠️  Python 3 not found - skipping fertilizer addition"
+        echo "   To add fertilizers manually later:"
+        echo "   python3 $FERTILIZER_SCRIPT $APP_DIR"
+        echo ""
+    fi
+fi
+
 # Get the folder containing the app
 APP_FOLDER="$(dirname "$APP_PATH")"
 FOLDER_NAME="$(basename "$APP_FOLDER")"

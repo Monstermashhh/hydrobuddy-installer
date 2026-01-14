@@ -290,21 +290,7 @@ if [ ! -f "$BINARY_EXEC" ]; then
     fi
     
     # Create wrapper script
-    cat > "$ORIGINAL_EXEC" << 'WRAPPER_EOF'
-
-#!/bin/bash
-# HydroBuddy Wrapper - Auto-detects database files
-
-# Get the app bundle's parent directory
-APP_BUNDLE="$( cd "$( dirname "${BASH_SOURCE[0]}" )/../../.." && pwd )"
-
-# Change to that directory
-cd "$APP_BUNDLE"
-
-# Launch the actual executable
-exec "$APP_BUNDLE/hydrobuddy.app/Contents/MacOS/hydrobuddy-bin" "$@"
-
-WRAPPER_EOF
+    printf '#!/bin/bash\n# HydroBuddy Wrapper - Auto-detects database files\n\n# Get the app bundle'"'"'s parent directory\nAPP_BUNDLE="$( cd "$( dirname "${BASH_SOURCE[0]}" )/../../.." && pwd )"\n\n# Change to that directory\ncd "$APP_BUNDLE"\n\n# Launch the actual executable\nexec "$APP_BUNDLE/hydrobuddy.app/Contents/MacOS/hydrobuddy-bin" "$@"\n' > "$ORIGINAL_EXEC"
     
     chmod +x "$ORIGINAL_EXEC"
     echo "✓ App bundle modified"
@@ -318,21 +304,7 @@ LAUNCHER_COMMAND="$APP_DIR/Launch-HydroBuddy.command"
 
 echo "Creating launcher command (alternative method)..."
 
-cat > "$LAUNCHER_COMMAND" << LAUNCHER_EOF
-#!/bin/bash
-# HydroBuddy Launcher
-# This script launches HydroBuddy with the correct working directory
-# so it can automatically find its database files.
-
-# Get the directory where this script is located
-SCRIPT_DIR="\$( cd "\$( dirname "\${BASH_SOURCE[0]}" )" && pwd )"
-
-# Change to the directory containing the database files
-cd "\$SCRIPT_DIR"
-
-# Launch HydroBuddy
-exec "\$SCRIPT_DIR/hydrobuddy.app/Contents/MacOS/hydrobuddy"
-LAUNCHER_EOF
+printf '#!/bin/bash\n# HydroBuddy Launcher\n# This script launches HydroBuddy with the correct working directory\n# so it can automatically find its database files.\n\n# Get the directory where this script is located\nSCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"\n\n# Change to the directory containing the database files\ncd "$SCRIPT_DIR"\n\n# Launch HydroBuddy\nexec "$SCRIPT_DIR/hydrobuddy.app/Contents/MacOS/hydrobuddy"\n' > "$LAUNCHER_COMMAND"
 
 chmod +x "$LAUNCHER_COMMAND"
 

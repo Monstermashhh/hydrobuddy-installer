@@ -1,4 +1,4 @@
-# HydroBuddy macOS Installer v1.1.0
+# HydroBuddy macOS Installer v1.1.1
 
 A simple installer that makes HydroBuddy work seamlessly on macOS by fixing quarantine issues and auto-detecting database files.
 

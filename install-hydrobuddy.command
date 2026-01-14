@@ -1,5 +1,22 @@
 #!/bin/bash
 
+# Auto-fix permissions if needed (for users who download without execute bit)
+if [ ! -x "$0" ]; then
+    chmod +x "$0" 2>/dev/null || {
+        echo ""
+        echo "❌ Error: This script needs execute permissions."
+        echo ""
+        echo "Please run this command in Terminal:"
+        echo "  chmod +x $(basename "$0")"
+        echo ""
+        echo "Then double-click the script again."
+        read -p "Press Enter to exit..." || true
+        exit 1
+    }
+    # Re-execute with proper permissions
+    exec "$0" "$@"
+fi
+
 # HydroBuddy macOS Installer
 # This script helps install HydroBuddy on macOS by removing the quarantine flag
 # that prevents unsigned applications from running.

@@ -200,8 +200,6 @@ if command -v python3 &> /dev/null; then
     echo ""
     
     # Look for fertilizers.csv - check external files first, then use embedded data
-    SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-    
     if [ -f "$SCRIPT_DIR/fertilizers.csv" ]; then
         CSV_TO_USE="$SCRIPT_DIR/fertilizers.csv"
         echo "  ✓ Using custom fertilizers.csv from same directory"
@@ -211,7 +209,7 @@ if command -v python3 &> /dev/null; then
     else
         # No external CSV found - create from embedded data
         CSV_TO_USE="/tmp/hydrobuddy-fertilizers-$$.csv"
-        echo "  ✓ Using built-in fertilizer database (58 fertilizers)"
+        echo "  ✓ Using built-in fertilizer database"
         cat > "$CSV_TO_USE" << 'CSV_EOF'
 Name,Formula,Source,Purity,N_NO3,N_NH4,P,K,Mg,Ca,S,B,Fe,Zn,Mn,Cu,Mo,Na,Si,Cl,isLiquid,Density,Cost,ConcType
 Jacks 5-12-26 Part A,NPK blend,Jack's Nutrients,1.0,5.0,0.0,5.24,21.58,6.3,0.0,8.5,0.05,0.3,0.015,0.05,0.015,0.019,0.0,0.0,0.0,0,0.0,0.0,0
@@ -412,7 +410,7 @@ def create_fertilizer_record(name, formula, source, purity, nutrients, isliquid,
     record[offset:offset+18] = format_numeric_field(cost)
     offset += 18
     
-    # ConcType (remaining bytes - 240 bytes)
+    # ConcType (remaining bytes - should be 80 bytes for standard records)
     remaining = 681 - offset
     record[offset:offset+remaining] = format_string_field(conctype, remaining)
     
@@ -659,7 +657,7 @@ PYTHON_SCRIPT_EOF
         if [ ! -f "$OUTPUT_CSV" ]; then
             cp "$CSV_TO_USE" "$OUTPUT_CSV"
             echo ""
-            echo "  ✓ Created fertilizers.csv (58 fertilizers)"
+            echo "  ✓ Created fertilizers.csv"
             echo "    Edit this file and re-run the installer to add more!"
         fi
     } || {

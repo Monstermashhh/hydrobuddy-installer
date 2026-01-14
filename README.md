@@ -17,7 +17,7 @@ This installer fixes both issues automatically.
 ## ✨ Features
 
 - ✅ **One-file installation** - Just drag and drop a single file!
-- ✅ **58 fertilizers included** - Automatically adds popular nutrients from Jack's, Athena, FloraFlex, General Hydroponics, CANNA, MasterBlend, and more
+- ✅ **Popular fertilizers included** - Automatically adds many popular nutrients from Jack's, Athena, FloraFlex, General Hydroponics, CANNA, MasterBlend, and more
 - ✅ **Auto-creates fertilizers.csv** - Creates an editable CSV in your HydroBuddy folder for easy customization
 - ✅ **Easy updates** - Edit the CSV and re-run installer to add more fertilizers
 - ✅ Script auto-fixes permissions if needed
@@ -47,7 +47,7 @@ The installer will:
 
 - Install HydroBuddy to Applications
 - Configure database auto-detection
-- Add 58 fertilizers from popular brands (Jack's, Athena, FloraFlex, GH, CANNA, MasterBlend, Haifa, Yara, and more)
+- Add many fertilizers from popular brands (Jack's, Athena, FloraFlex, GH, CANNA, MasterBlend, Haifa, Yara, and more)
 - Create `fertilizers.csv` in your HydroBuddy folder (for easy customization!)
 - Launch the app
 
@@ -104,7 +104,7 @@ Both methods automatically detect database files - no manual folder selection ne
 
 ## 🧪 Customizing Fertilizers
 
-The installer includes **58 popular fertilizers** out of the box and **automatically creates `fertilizers.csv`** in your HydroBuddy folder after installation!
+The installer includes **many popular fertilizers** out of the box and **automatically creates `fertilizers.csv`** in your HydroBuddy folder after installation!
 
 ### Adding More Fertilizers (Super Easy!)
 
@@ -115,21 +115,6 @@ After running the installer once, you'll find `fertilizers.csv` in your HydroBud
 3. Done! ✨ Your new fertilizers are now in the database
 
 **The installer automatically uses your edited CSV file!** No need to download anything separately.
-
-### Method 2: Standalone Script (Advanced)
-
-If you've already installed HydroBuddy:
-
-1. Edit [`docs/fertilizers.csv`](docs/fertilizers.csv)
-2. Run:
-   ```bash
-   python3 docs/add-fertilizers.py /Applications/HydroBuddy-X.XXX-MacOS/hydrobuddy.app/Contents/MacOS fertilizers.csv
-   ```
-3. Restart HydroBuddy
-
-**Includes automatic P₂O₅ → P and K₂O → K conversion guide!**
-
-See the [Adding Fertilizers Guide](docs/ADDING-FERTILIZERS.md) for complete instructions and examples.
 
 ## 🔧 What the Installer Does
 
@@ -153,7 +138,7 @@ See the [Adding Fertilizers Guide](docs/ADDING-FERTILIZERS.md) for complete inst
 
 ### 4. Database Customization
 
-- Automatically adds **58 fertilizers** from popular brands:
+- Automatically adds **many fertilizers** from popular brands:
   - **Jack's**: 5-12-26, 0-12-26, Calcium Nitrate
   - **Athena**: Pro Core, Pro Grow, Pro Bloom, Grow A/B, Bloom A/B
   - **FloraFlex**: V1, V2, B1, B2, Bulky B, Full Tilt

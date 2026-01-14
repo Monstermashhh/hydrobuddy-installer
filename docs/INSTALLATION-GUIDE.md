@@ -49,7 +49,9 @@ After this one-time approval, HydroBuddy will open normally every time.
 
 ## That's It!
 
-HydroBuddy is now installed and ready to use. Launch it from your Applications folder.
+HydroBuddy is now installed and ready to use with popular fertilizers already added! Launch it from your Applications folder.
+
+**Bonus:** A `fertilizers.csv` file was created in your HydroBuddy folder. You can edit it to add more fertilizers and run the installer again!
 
 ---
 

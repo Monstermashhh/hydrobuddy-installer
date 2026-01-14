@@ -129,7 +129,7 @@ def create_fertilizer_record(name, formula, source, purity, nutrients, isliquid,
     record[offset:offset+18] = format_numeric_field(cost)
     offset += 18
     
-    # ConcType (remaining bytes - 240 bytes)
+    # ConcType (remaining bytes - should be 80 bytes for standard records)
     remaining = 681 - offset
     record[offset:offset+remaining] = format_string_field(conctype, remaining)
     

@@ -2,7 +2,7 @@
 
 This guide explains how to add your own custom fertilizers to HydroBuddy's database using the CSV import system.
 
-**The installer already includes 58 popular fertilizers!** Use this guide if you want to add more or customize what's included.
+**The installer already includes many popular fertilizers!** Use this guide if you want to add more or customize what's included.
 
 ## Quick Start
 

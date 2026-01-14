@@ -16,6 +16,8 @@ This installer fixes both issues automatically.
 
 ## ✨ Features
 
+- ✅ **One-file installation** - Just drag and drop a single file!
+- ✅ **Custom fertilizers included** - Automatically adds Jack's nutrients and Calcium Sulfate to database
 - ✅ Script auto-fixes permissions if needed
 - ✅ Validates application bundle integrity
 - ✅ Checks for required database files
@@ -30,6 +32,23 @@ This installer fixes both issues automatically.
 
 - macOS 10.8 (Mountain Lion) or later
 
+## 🚀 Quick Start
+
+**It's this simple:**
+
+1. Download the ZIP from [Releases](https://github.com/Monstermashhh/hydrobuddy-installer/releases)
+2. Unzip and drag `install-hydrobuddy.command` into your HydroBuddy folder
+3. Double-click the file
+4. Done! 🎉
+
+The installer will:
+- Install HydroBuddy to Applications
+- Configure database auto-detection
+- Add custom fertilizers (Jack's nutrients, Calcium Sulfate)
+- Launch the app
+
+See [troubleshooting](#-troubleshooting) if you encounter any issues.
+
 ## 🚀 Installation
 
 ### Method 1: Download Release (Recommended)
@@ -39,7 +58,7 @@ This installer fixes both issues automatically.
 3. Place `install-hydrobuddy.command` in the same folder as `HydroBuddy.app`
 4. Double-click `install-hydrobuddy.command`
    - The script will automatically fix its own permissions if needed
-5. Follow the on-screen instructions (see [troubleshooting](https://github.com/Monstermashhh/hydrobuddy-installer?tab=readme-ov-file#-troubleshooting) section for issues)
+5. Follow the on-screen instructions (see [troubleshooting](#-troubleshooting) section for issues)
 
 ### Method 2: Clone Repository
 
@@ -79,6 +98,32 @@ Launch HydroBuddy using either method:
 
 Both methods automatically detect database files - no manual folder selection needed!
 
+## 🧪 Adding More Fertilizers
+
+### Method 1: Re-run Installer with Custom CSV (Easiest!)
+
+1. Download/copy [`docs/fertilizers.csv`](docs/fertilizers.csv) to the same folder as `install-hydrobuddy.command`
+2. Edit `fertilizers.csv` - add your fertilizers (see [guide](docs/ADDING-FERTILIZERS.md))
+3. **Double-click `install-hydrobuddy.command` again**
+4. Done! ✨ The installer will update your database with the new fertilizers
+
+**The installer automatically detects `fertilizers.csv` in its folder and uses it instead of defaults!**
+
+### Method 2: Standalone Script (Advanced)
+
+If you've already installed HydroBuddy:
+
+1. Edit [`docs/fertilizers.csv`](docs/fertilizers.csv)
+2. Run:
+   ```bash
+   python3 docs/add-fertilizers.py /Applications/HydroBuddy-X.XXX-MacOS/hydrobuddy.app/Contents/MacOS fertilizers.csv
+   ```
+3. Restart HydroBuddy
+
+**Includes automatic P₂O₅ → P and K₂O → K conversion guide!**
+
+See the [Adding Fertilizers Guide](docs/ADDING-FERTILIZERS.md) for complete instructions and examples.
+
 ## 🔧 What the Installer Does
 
 ### 1. Validation
@@ -99,7 +144,16 @@ Both methods automatically detect database files - no manual folder selection ne
 - Ensures database files are auto-detected on launch
 - Generates an alternative launcher as backup
 
-### 4. Launch
+### 4. Database Customization
+
+- Automatically adds custom fertilizers to the database:
+  - Jack's 5-12-26 Part A
+  - Jack's 0-12-26 Part A
+  - Jack's Calcium Nitrate (15.5-0-0)
+  - Calcium Sulfate (Gypsum)
+- Creates backups before making any database changes
+
+### 5. Launch
 
 - Opens Finder to show installation location
 - Launches HydroBuddy automatically
@@ -141,6 +195,14 @@ The installer will warn you if database files are missing. You can:
 
 - Redownload a fresh copy of HydroBuddy and try again (recommended)
 - Continue installation (HydroBuddy will prompt for files on launch)
+
+## 📚 Documentation
+
+- **[Installation Guide](docs/INSTALLATION-GUIDE.md)** - Detailed step-by-step instructions
+- **[Adding Fertilizers Guide](docs/ADDING-FERTILIZERS.md)** - How to add your own custom fertilizers using CSV
+- **[fertilizers.csv](docs/fertilizers.csv)** - CSV template for custom fertilizers
+- **[add-fertilizers.py](docs/add-fertilizers.py)** - Standalone script for adding fertilizers (embedded in installer)
+- **[DBF Structure Reference](docs/DBF-STRUCTURE-REFERENCE.md)** - Technical documentation for database format
 
 ## 📝 Technical Details
 

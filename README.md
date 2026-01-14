@@ -17,7 +17,9 @@ This installer fixes both issues automatically.
 ## ✨ Features
 
 - ✅ **One-file installation** - Just drag and drop a single file!
-- ✅ **Custom fertilizers included** - Automatically adds Jack's nutrients and Calcium Sulfate to database
+- ✅ **58 fertilizers included** - Automatically adds popular nutrients from Jack's, Athena, FloraFlex, General Hydroponics, CANNA, MasterBlend, and more
+- ✅ **Auto-creates fertilizers.csv** - Creates an editable CSV in your HydroBuddy folder for easy customization
+- ✅ **Easy updates** - Edit the CSV and re-run installer to add more fertilizers
 - ✅ Script auto-fixes permissions if needed
 - ✅ Validates application bundle integrity
 - ✅ Checks for required database files
@@ -42,9 +44,11 @@ This installer fixes both issues automatically.
 4. Done! 🎉
 
 The installer will:
+
 - Install HydroBuddy to Applications
 - Configure database auto-detection
-- Add custom fertilizers (Jack's nutrients, Calcium Sulfate)
+- Add 58 fertilizers from popular brands (Jack's, Athena, FloraFlex, GH, CANNA, MasterBlend, Haifa, Yara, and more)
+- Create `fertilizers.csv` in your HydroBuddy folder (for easy customization!)
 - Launch the app
 
 See [troubleshooting](#-troubleshooting) if you encounter any issues.
@@ -98,16 +102,19 @@ Launch HydroBuddy using either method:
 
 Both methods automatically detect database files - no manual folder selection needed!
 
-## 🧪 Adding More Fertilizers
+## 🧪 Customizing Fertilizers
 
-### Method 1: Re-run Installer with Custom CSV (Easiest!)
+The installer includes **58 popular fertilizers** out of the box and **automatically creates `fertilizers.csv`** in your HydroBuddy folder after installation!
 
-1. Download/copy [`docs/fertilizers.csv`](docs/fertilizers.csv) to the same folder as `install-hydrobuddy.command`
-2. Edit `fertilizers.csv` - add your fertilizers (see [guide](docs/ADDING-FERTILIZERS.md))
-3. **Double-click `install-hydrobuddy.command` again**
-4. Done! ✨ The installer will update your database with the new fertilizers
+### Adding More Fertilizers (Super Easy!)
 
-**The installer automatically detects `fertilizers.csv` in its folder and uses it instead of defaults!**
+After running the installer once, you'll find `fertilizers.csv` in your HydroBuddy folder:
+
+1. **Edit `fertilizers.csv`** in your HydroBuddy folder - add/modify fertilizers (see [guide](docs/ADDING-FERTILIZERS.md))
+2. **Double-click `install-hydrobuddy.command` again**
+3. Done! ✨ Your new fertilizers are now in the database
+
+**The installer automatically uses your edited CSV file!** No need to download anything separately.
 
 ### Method 2: Standalone Script (Advanced)
 
@@ -146,12 +153,20 @@ See the [Adding Fertilizers Guide](docs/ADDING-FERTILIZERS.md) for complete inst
 
 ### 4. Database Customization
 
-- Automatically adds custom fertilizers to the database:
-  - Jack's 5-12-26 Part A
-  - Jack's 0-12-26 Part A
-  - Jack's Calcium Nitrate (15.5-0-0)
-  - Calcium Sulfate (Gypsum)
+- Automatically adds **58 fertilizers** from popular brands:
+  - **Jack's**: 5-12-26, 0-12-26, Calcium Nitrate
+  - **Athena**: Pro Core, Pro Grow, Pro Bloom, Grow A/B, Bloom A/B
+  - **FloraFlex**: V1, V2, B1, B2, Bulky B, Full Tilt
+  - **Front Row AG**: Part A, Part B, Bloom
+  - **General Hydroponics**: Flora series, CaliMagic, Armor Si, KoolBloom
+  - **CANNA**: Coco A/B, PK 13/14, Mono nutrients
+  - **House & Garden**: Aqua Flakes A/B, CalMag
+  - **MasterBlend**: 4-18-38, Calcium Nitrate, Magnesium Sulfate
+  - **Haifa/Yara**: MKP, MAP, SOP, Calcium Nitrate
+  - **Generic salts**: Calcium Nitrate, Magnesium Sulfate, MKP
+  - **Silica products**: Impello Dune, Power Si, RAW Silica, AgSil 16H, and more
 - Creates backups before making any database changes
+- **Optional**: Place your own `fertilizers.csv` next to the installer to add custom fertilizers instead
 
 ### 5. Launch
 

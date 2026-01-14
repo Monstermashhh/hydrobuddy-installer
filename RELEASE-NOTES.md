@@ -1,4 +1,4 @@
-# HydroBuddy macOS Installer v1.0.0
+# HydroBuddy macOS Installer v1.1.0
 
 A simple installer that makes HydroBuddy work seamlessly on macOS by fixing quarantine issues and auto-detecting database files.
 
@@ -11,17 +11,43 @@ A simple installer that makes HydroBuddy work seamlessly on macOS by fixing quar
 3. **Double-click** it
 4. Follow the on-screen instructions
 
-That's it! HydroBuddy will be installed with 4 bonus fertilizers already in the database.
+That's it! HydroBuddy will be installed with **58 popular fertilizers** already in the database.
 
 ## ✨ What's Included
 
-### Default Fertilizers
+### Built-in Fertilizers (58 Total)
 
-This installer automatically adds these fertilizers to your database:
-- **Jack's 5-12-26 Part A** - Complete NPK blend with micronutrients
-- **Jack's 0-12-26 Part A** - PK blend without nitrogen
-- **Jack's Calcium Nitrate** - High-quality calcium and nitrogen source (Part B)
-- **Calcium Sulfate (Gypsum)** - Calcium and sulfur supplement
+This installer automatically adds fertilizers from these popular brands:
+
+**Jack's**
+- 5-12-26 Part A, 0-12-26 Part A, Calcium Nitrate
+
+**Athena**
+- Pro Core, Pro Grow, Pro Bloom, Grow A/B, Bloom A/B
+
+**FloraFlex**
+- V1, V2, B1, B2, Bulky B, Full Tilt
+
+**Front Row AG**
+- Part A, Part B, Bloom
+
+**General Hydroponics**
+- FloraMicro, FloraGro, FloraBloom, CaliMagic, Armor Si, KoolBloom (Liquid & Dry)
+
+**CANNA**
+- Coco A/B, PK 13/14, Mono Calcium, Mono Magnesium
+
+**House & Garden**
+- Aqua Flakes A/B, Magnesium Boost, CalMag Powder
+
+**MasterBlend, Haifa, Yara**
+- 4-18-38, MKP, MAP, SOP, Calcium Nitrate, Magnesium Sulfate, and more
+
+**Generic Salts**
+- Calcium Nitrate, Magnesium Sulfate (Epsom Salt), Mono Potassium Phosphate, Calcium Sulfate
+
+**Silica Products**
+- Impello Dune, Power Si Original/Bloom, RAW Silica, Dyna-Gro Pro-TeKt, AgSil 16H, Grotek Gro-Silic, Rhizoflora Terpinator
 
 ### Features
 
@@ -32,21 +58,22 @@ This installer automatically adds these fertilizers to your database:
 - ✅ Creates automatic backups
 - ✅ No manual folder selection needed after install
 
-## 🧪 Adding Your Own Fertilizers (Optional)
+## 🧪 Adding More Fertilizers (Super Easy!)
 
-Want to add more fertilizers? It's easy!
+The installer includes 58 fertilizers AND creates `fertilizers.csv` in your HydroBuddy folder!
 
-### Method 1: Using the Installer (Recommended)
+### After Installation
 
-1. **Download** `fertilizers.csv` (below)
+1. **Find** `fertilizers.csv` in your HydroBuddy folder (created automatically!)
 2. **Edit** it to add your fertilizers:
    ```csv
    Name,Formula,Source,Purity,N_NO3,N_NH4,P,K,Mg,Ca,S,B,Fe,Zn,Mn,Cu,Mo,Na,Si,Cl,isLiquid,Density,Cost,ConcType
    My Fertilizer,NPK,My Brand,1.0,10.0,0.0,5.24,21.58,3.0,0.0,2.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0,0.0,0.0,0
    ```
-3. **Place** `fertilizers.csv` next to `install-hydrobuddy.command`
-4. **Run** `install-hydrobuddy.command` again
-5. **Restart** HydroBuddy - your fertilizers will be there!
+3. **Run** `install-hydrobuddy.command` again
+4. **Restart** HydroBuddy - your new fertilizers are added!
+
+**No downloads needed!** The CSV is created for you automatically.
 
 ### Method 2: Advanced Users
 
@@ -58,7 +85,7 @@ python3 add-fertilizers.py /Applications/HydroBuddy-X.XXX-MacOS/hydrobuddy.app/C
 ### Need Help?
 
 - **[Adding Fertilizers Guide](https://github.com/Monstermashhh/hydrobuddy-installer/blob/main/docs/ADDING-FERTILIZERS.md)** - Complete tutorial with examples
-- **[CSV Template](https://github.com/Monstermashhh/hydrobuddy-installer/blob/main/docs/fertilizers.csv)** - Pre-configured with Jack's nutrients
+- **[CSV Template](https://github.com/Monstermashhh/hydrobuddy-installer/blob/main/docs/fertilizers.csv)** - Pre-configured with all 58 fertilizers
 - **[NPK Conversion Calculator](https://github.com/Monstermashhh/hydrobuddy-installer/blob/main/docs/ADDING-FERTILIZERS.md#important-converting-npk-values)** - P₂O₅ → P and K₂O → K formulas
 
 ## 📥 Download
@@ -66,13 +93,13 @@ python3 add-fertilizers.py /Applications/HydroBuddy-X.XXX-MacOS/hydrobuddy.app/C
 ### Required Files
 
 **Everyone needs this:**
-- **`install-hydrobuddy.command`** - The main installer script
+- **`install-hydrobuddy.command`** - The main installer script (includes all 58 fertilizers built-in!)
 
 ### Optional Files
 
-**Download if you want to add custom fertilizers:**
-- **`fertilizers.csv`** - Template for adding your own fertilizers
-- **`add-fertilizers.py`** - Standalone script (advanced users)
+**Download if you want to customize or add more fertilizers:**
+- **`fertilizers.csv`** - Template with all 58 fertilizers (edit and place next to installer to override)
+- **`add-fertilizers.py`** - Standalone script (advanced users only)
 
 ## 🛠️ Troubleshooting
 

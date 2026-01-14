@@ -39,7 +39,7 @@ cat << "EOF"
 ╔═══════════════════════════════════════════════════════════════╗
 ║                                                               ║
 ║              HydroBuddy macOS Installer                       ║
-║              Version 1.0.1                                    ║
+║              Version 1.1.0                                    ║
 ║                                                               ║
 ╚═══════════════════════════════════════════════════════════════╝
 
@@ -199,22 +199,81 @@ if command -v python3 &> /dev/null; then
     echo "Adding custom fertilizers to database..."
     echo ""
     
-    # Check if user has a custom fertilizers.csv in the same directory
+    # Look for fertilizers.csv - check external files first, then use embedded data
     SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-    USER_CSV="$SCRIPT_DIR/fertilizers.csv"
     
-    if [ -f "$USER_CSV" ]; then
-        echo "  ✓ Found custom fertilizers.csv - using it!"
-        CSV_TO_USE="$USER_CSV"
+    if [ -f "$SCRIPT_DIR/fertilizers.csv" ]; then
+        CSV_TO_USE="$SCRIPT_DIR/fertilizers.csv"
+        echo "  ✓ Using custom fertilizers.csv from same directory"
+    elif [ -f "$SCRIPT_DIR/docs/fertilizers.csv" ]; then
+        CSV_TO_USE="$SCRIPT_DIR/docs/fertilizers.csv"
+        echo "  ✓ Using fertilizers.csv from docs/ directory"
     else
-        # Create temporary CSV file with default fertilizer data
+        # No external CSV found - create from embedded data
         CSV_TO_USE="/tmp/hydrobuddy-fertilizers-$$.csv"
+        echo "  ✓ Using built-in fertilizer database (58 fertilizers)"
         cat > "$CSV_TO_USE" << 'CSV_EOF'
 Name,Formula,Source,Purity,N_NO3,N_NH4,P,K,Mg,Ca,S,B,Fe,Zn,Mn,Cu,Mo,Na,Si,Cl,isLiquid,Density,Cost,ConcType
 Jacks 5-12-26 Part A,NPK blend,Jack's Nutrients,1.0,5.0,0.0,5.24,21.58,6.3,0.0,8.5,0.05,0.3,0.015,0.05,0.015,0.019,0.0,0.0,0.0,0,0.0,0.0,0
 Jacks 0-12-26 Part A,PK blend,Jack's Nutrients,1.0,0.0,0.0,5.24,21.58,6.0,0.0,13.0,0.05,0.3,0.015,0.05,0.015,0.0009,0.0,0.0,0.0,0,0.0,0.0,0
 Jacks Calcium Nitrate,Ca(NO3)2,Jack's Nutrients,1.0,15.5,0.0,0.0,0.0,0.0,19.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0,0.0,0.0,1
 Calcium Sulfate,CaSO4·2H2O,Generic,1.0,0.0,0.0,0.0,0.0,0.0,22.0,17.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0,0.0,0.0,0
+Athena Pro Core,14-0-0,Athena,1.0,14.0,0.0,0.0,0.0,0.0,17.0,0.0,0.015,0.1,0.013,0.04,0.01,0.01,0.0,0.0,0.0,0,0.0,0.0,0
+Athena Pro Grow,2-8-20,Athena,1.0,2.0,0.0,3.49,16.6,3.0,0.0,8.0,0.0,0.1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0,0.0,0.0,0
+Athena Pro Bloom,0-12-24,Athena,1.0,0.0,0.0,5.24,19.92,3.0,0.0,9.0,0.0,0.1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0,0.0,0.0,0
+Athena Grow A,4-0-1,Athena,1.0,3.8,0.2,0.0,0.83,0.19,4.2,0.0,0.01,0.06,0.0045,0.013,0.0,0.0007,0.0,0.0,0.0,1,1.0,0.0,0
+Athena Grow B,1-3-5,Athena,1.0,0.2,0.8,1.31,4.15,0.89,0.0,1.3,0.0,0.0,0.0,0.0,0.005,0.0,0.0,0.0,0.0,1,1.0,0.0,0
+Athena Bloom A,4-0-5,Athena,1.0,3.8,0.2,0.0,4.15,0.17,3.2,0.0,0.01,0.06,0.0045,0.013,0.0,0.0007,0.0,0.0,0.0,1,1.0,0.0,0
+Athena Bloom B,0.7-6-5,Athena,1.0,0.5,0.2,2.62,4.15,0.94,0.0,1.3,0.0,0.0,0.0,0.0,0.005,0.0,0.0,0.0,0.0,1,1.0,0.0,0
+CropSalt Veg A,5-0-0.3,CropSalt,1.0,5.0,0.0,0.0,0.25,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0,0.0,0.0,0
+CropSalt Veg B,1.3-2-5.9,CropSalt,1.0,1.3,0.0,0.87,4.90,1.0,0.0,1.3,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0,0.0,0.0,0
+FloraFlex V1,14-0-4,FloraFlex,1.0,13.0,1.0,0.0,3.32,0.0,15.0,0.0,0.0,0.0,0.0,0.0,0.0,0.001,0.0,0.0,0.0,0,0.0,0.0,0
+FloraFlex V2,6-17-25,FloraFlex,1.0,4.0,2.0,7.42,20.75,2.0,0.0,6.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0,0.0,0.0,0
+FloraFlex B1,14-0-22,FloraFlex,1.0,13.5,0.5,0.0,18.26,0.0,7.0,0.0,0.0,0.0,0.0,0.0,0.0,0.001,0.0,0.0,0.0,0,0.0,0.0,0
+FloraFlex B2,0-28-18,FloraFlex,1.0,0.0,0.0,12.22,14.94,7.0,0.0,11.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0,0.0,0.0,0
+FloraFlex Bulky B,0-14-43,FloraFlex,1.0,0.0,0.0,6.11,35.69,1.0,0.0,11.0,0.0,0.0,0.0,0.0,0.0,0.001,1.0,0.0,0.0,0,0.0,0.0,0
+FloraFlex Full Tilt,0-47-35,FloraFlex,1.0,0.0,0.0,20.51,29.05,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0,0.0,0.0,0
+Front Row AG Part A,14-0-8,Front Row AG,1.0,14.0,0.0,0.0,6.64,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0,0.0,0.0,0
+Front Row AG Part B,2-13-17,Front Row AG,1.0,2.0,0.0,5.67,14.11,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0,0.0,0.0,0
+Front Row AG Bloom,0-35-29,Front Row AG,1.0,0.0,0.0,15.27,24.07,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0,0.0,0.0,0
+GH FloraMicro,5-0-1,General Hydroponics,1.0,4.7,0.3,0.0,0.83,0.0,5.0,0.0,0.01,0.1,0.015,0.05,0.01,0.0008,0.0,0.0,0.0,1,1.0,0.0,0
+GH FloraGro,2-1-6,General Hydroponics,1.0,1.75,0.25,0.44,4.98,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1,1.0,0.0,0
+GH FloraBloom,0-5-4,General Hydroponics,1.0,0.0,0.0,2.18,3.32,1.5,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1,1.0,0.0,0
+GH CaliMagic,1-0-0,General Hydroponics,1.0,1.0,0.0,0.0,0.0,1.5,5.0,0.0,0.0,0.1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1,1.0,0.0,0
+GH Armor Si,0-0-4,General Hydroponics,1.0,0.0,0.0,0.0,3.32,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,10.0,0.0,1,1.0,0.0,0
+GH KoolBloom Liquid,0-10-10,General Hydroponics,1.0,0.0,0.0,4.36,8.30,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1,1.0,0.0,0
+GH KoolBloom Dry,2-45-28,General Hydroponics,1.0,0.0,2.0,19.64,23.24,1.0,0.0,1.5,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0,0.0,0.0,0
+CANNA Coco A,4-0-1,CANNA,1.0,4.0,0.0,0.0,0.83,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1,1.0,0.0,0
+CANNA Coco B,0-4-2,CANNA,1.0,0.0,0.0,1.75,1.66,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1,1.0,0.0,0
+CANNA PK 13/14,0-13-14,CANNA,1.0,0.0,0.0,5.67,11.62,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1,1.0,0.0,0
+CANNA Mono Calcium,Calcium,CANNA,1.0,0.0,0.0,0.0,0.0,0.0,15.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1,1.0,0.0,0
+CANNA Mono Magnesium,MgSO4,CANNA,1.0,0.0,0.0,0.0,0.0,9.8,0.0,12.9,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0,0.0,0.0,0
+H&G Aqua Flakes A,3-0-2,House & Garden,1.0,3.0,0.0,0.0,1.66,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1,1.0,0.0,0
+H&G Aqua Flakes B,1-3-5,House & Garden,1.0,1.0,0.0,1.31,4.15,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1,1.0,0.0,0
+H&G Magnesium Boost,5-0-0,House & Garden,1.0,5.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1,1.0,0.0,0
+H&G CalMag Powder,12-0-0,House & Garden,1.0,11.9,0.1,0.0,0.0,3.0,10.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0,0.0,0.0,0
+Calcium Nitrate 15-0-0,Ca(NO3)2,Generic,1.0,15.0,0.0,0.0,0.0,0.0,19.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0,0.0,0.0,1
+Magnesium Sulfate,MgSO4·7H2O,Generic,1.0,0.0,0.0,0.0,0.0,9.8,0.0,12.9,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0,0.0,0.0,0
+Mono Potassium Phosphate,KH2PO4,Generic,1.0,0.0,0.0,22.7,28.2,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0,0.0,0.0,0
+MasterBlend 4-18-38,4-18-38,MasterBlend,1.0,3.5,0.5,7.86,31.54,0.5,0.0,0.0,0.20,0.40,0.05,0.20,0.05,0.01,0.0,0.0,0.0,0,0.0,0.0,0
+MasterBlend Calcium Nitrate,Ca(NO3)2,MasterBlend,1.0,15.5,0.0,0.0,0.0,0.0,19.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0,0.0,0.0,1
+MasterBlend Magnesium Sulfate,MgSO4·7H2O,MasterBlend,1.0,0.0,0.0,0.0,0.0,9.8,0.0,12.9,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0,0.0,0.0,0
+Haifa Calcium Nitrate,Ca(NO3)2,Haifa,1.0,15.5,0.0,0.0,0.0,0.0,19.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0,0.0,0.0,1
+Haifa MKP,KH2PO4,Haifa,1.0,0.0,0.0,22.7,28.2,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0,0.0,0.0,0
+Haifa MAP,NH4H2PO4,Haifa,1.0,0.0,12.0,26.6,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0,0.0,0.0,0
+Haifa SOP,K2SO4,Haifa,1.0,0.0,0.0,0.0,41.5,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0,0.0,0.0,0
+Yara Calcinit,Ca(NO3)2,Yara,1.0,15.5,0.0,0.0,0.0,0.0,26.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0,0.0,0.0,1
+Yara Krista MKP,KH2PO4,Yara,1.0,0.0,0.0,22.7,28.2,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0,0.0,0.0,0
+Yara Krista MAP,NH4H2PO4,Yara,1.0,0.0,12.0,26.6,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0,0.0,0.0,0
+Yara Krista SOP,K2SO4,Yara,1.0,0.0,0.0,0.0,42.3,0.0,0.0,18.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0,0.0,0.0,0
+Impello Dune,Si(OH)4,Impello,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2.2,0.0,1,1.0,0.0,0
+Power Si Original,1-3-1,Power Si,1.0,1.0,0.0,1.31,0.83,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.008,0.0,2.21,0.0,1,1.0,0.0,0
+Power Si Bloom,1-2-0.5,Power Si,1.0,0.8,0.0,0.87,0.42,0.0,0.0,0.0,0.007,0.0,0.3,0.0,0.0,0.0,0.0,0.66,0.0,1,1.0,0.0,0
+RAW Silica,SiO2,NPK Industries,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,21.15,0.0,0,0.0,0.0,0
+Dyna-Gro Pro-TeKt,0-0-3.7,Dyna-Gro,1.0,0.0,0.0,0.0,3.07,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,3.67,0.0,1,1.0,0.0,0
+AgSil 16H,K-Silicate,PQ Corporation,1.0,0.0,0.0,0.0,26.56,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,24.44,0.0,0,0.0,0.0,0
+Grotek Gro-Silic,Si(OH)4,Grotek,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.009,0.0,0.0,0.0,0.0,0.0015,0.0,44.0,0.0,1,1.0,0.0,0
+Rhizoflora Terpinator,0-0-4,Rhizoflora,1.0,0.0,0.0,0.0,3.32,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1,1.0,0.0,0
 CSV_EOF
     fi
     
@@ -591,14 +650,27 @@ if __name__ == "__main__":
 PYTHON_SCRIPT_EOF
     
     # Run the temporary script with CSV file
-    python3 "$TEMP_SCRIPT" "$APP_MACOS_DIR" "$CSV_TO_USE" || {
+    python3 "$TEMP_SCRIPT" "$APP_MACOS_DIR" "$CSV_TO_USE" && {
+        # Success! Now create fertilizers.csv in current folder for future edits
+        OUTPUT_CSV="$SCRIPT_DIR/fertilizers.csv"
+        
+        # Create the CSV in the same folder as the installer if it doesn't exist
+        # (Don't overwrite if user already has a custom one)
+        if [ ! -f "$OUTPUT_CSV" ]; then
+            cp "$CSV_TO_USE" "$OUTPUT_CSV"
+            echo ""
+            echo "  ✓ Created fertilizers.csv (58 fertilizers)"
+            echo "    Edit this file and re-run the installer to add more!"
+        fi
+    } || {
         echo "⚠️  Warning: Failed to add fertilizers, but installation will continue"
         echo ""
     }
     
-    # Clean up temporary files (only if we created them)
+    # Clean up temporary files
     rm -f "$TEMP_SCRIPT"
-    if [ "$CSV_TO_USE" != "$USER_CSV" ]; then
+    # Only remove CSV if it was created from embedded data (in /tmp)
+    if [[ "$CSV_TO_USE" == /tmp/* ]]; then
         rm -f "$CSV_TO_USE"
     fi
 else

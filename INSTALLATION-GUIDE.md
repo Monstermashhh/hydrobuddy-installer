@@ -16,15 +16,21 @@ This installer fixes both problems automatically.
 ## How to Use It
 
 ### Step 1: Download
+
 Download `install-hydrobuddy.command` from this release page (see Assets below).
 
 ### Step 2: Place the File
+
 Put `install-hydrobuddy.command` in the **same folder** as your `HydroBuddy.app`.
 
 ### Step 3: Run the Installer
+
 Double-click `install-hydrobuddy.command` and follow the prompts.
 
+**Note:** If the script doesn't have execute permissions, it will automatically fix itself or show you the exact command to run in Terminal.
+
 The installer will:
+
 - Move HydroBuddy to your Applications folder
 - Remove Apple's security blocks
 - Configure automatic database detection
@@ -44,6 +50,20 @@ After this one-time approval, HydroBuddy will open normally every time.
 ## That's It!
 
 HydroBuddy is now installed and ready to use. Launch it from your Applications folder.
+
+---
+
+## Troubleshooting
+
+### Permission Issues
+
+If you get a message about execute permissions:
+
+1. The script will show you the exact Terminal command to run
+2. Copy and paste that command into Terminal
+3. Try running the script again
+
+The script has built-in permission fixing, so this should only happen once (if at all).
 
 ---
 

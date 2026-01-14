@@ -1,6 +1,6 @@
 # HydroBuddy macOS Installer
 
-A simple installer script that prevents users on macOS 10.8+ from using HydroBuddy by removing quarantine flags and configuring automatic database file detection.
+A simple installer script that enables users on macOS 10.8+ to use HydroBuddy by removing quarantine flags and configuring automatic database file detection.
 
 [![macOS](https://img.shields.io/badge/macOS-10.8+-blue.svg)](https://www.apple.com/macos/)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
@@ -16,6 +16,7 @@ This installer fixes both issues automatically.
 
 ## ✨ Features
 
+- ✅ Script auto-fixes permissions if needed
 - ✅ Validates application bundle integrity
 - ✅ Checks for required database files
 - ✅ Moves HydroBuddy to Applications folder
@@ -37,7 +38,8 @@ This installer fixes both issues automatically.
 2. Extract the ZIP file
 3. Place `install-hydrobuddy.command` in the same folder as `HydroBuddy.app`
 4. Double-click `install-hydrobuddy.command`
-5. Follow the on-screen instructions
+   - The script will automatically fix its own permissions if needed
+5. Follow the on-screen instructions (see [troubleshooting](https://github.com/Monstermashhh/hydrobuddy-installer?tab=readme-ov-file#-troubleshooting) section for issues)
 
 ### Method 2: Clone Repository
 
@@ -48,13 +50,12 @@ git clone https://github.com/Monstermashhh/hydrobuddy-installer.git
 # Copy the installer to your HydroBuddy folder
 cp hydrobuddy-installer/install-hydrobuddy.command /path/to/your/hydrobuddy/folder/
 
-# Make it executable (if needed)
-chmod +x /path/to/your/hydrobuddy/folder/install-hydrobuddy.command
-
-# Run the installer
+# Run the installer (permissions are auto-fixed on first run)
 cd /path/to/your/hydrobuddy/folder/
 ./install-hydrobuddy.command
 ```
+
+**Note:** If cloning from git, the script already has execute permissions. If downloading directly, the script will automatically fix its own permissions when run.
 
 ## 📖 Usage
 
@@ -113,6 +114,16 @@ This is normal on first launch. To fix:
 2. Scroll to the **Security** section
 3. Click **"Open Anyway"** next to the HydroBuddy message
 4. Click **"Open"** to confirm
+
+### "This script needs execute permissions"
+
+If you see this message when trying to run the installer, don't worry! The script has detected it doesn't have execute permissions and will show you the exact command to run. Simply:
+
+1. Open Terminal
+2. Run the command shown in the error message
+3. Double-click the script again
+
+Alternatively, the script will attempt to fix its own permissions automatically.
 
 ### "App is damaged and can't be opened"
 
